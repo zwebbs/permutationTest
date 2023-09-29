@@ -4,6 +4,14 @@
 -- Purpose: define functions that generate list permutations 
 --   for our permutation test.
 
+
+-- module namespace statement
+module Permute (
+    randomSelect,
+    shuffle,
+    getShuffleSet) where
+
+-- import basic utils for random number generation
 import System.Random
 
 
@@ -23,8 +31,8 @@ randomSelect g (x:xs) l = ((x:xs) !! i, (take i (x:xs)) ++ (drop (i+1) (x:xs)), 
 
 {-- 
  define a function that takes a random generator g
- and a list A and return a shuffled list of A 
- where the elements are rearranged.
+ ,a list A, and the length of the list l and returns
+ a shuffled list of A where the elements are rearranged.
 --}
 shuffle :: RandomGen g => g -> [a] -> Int -> [a]
 shuffle _ [] _ = []
@@ -34,7 +42,6 @@ shuffle g (x:xs) l =  [v1] ++ v2 where
     v2 = shuffle g1 r1 (l-1)
 
 
-
 {--
  define a function that takes a random generator g, a list A, the length
  of A, l, and the number of shuffles N and returns a list of lists where
@@ -42,4 +49,6 @@ shuffle g (x:xs) l =  [v1] ++ v2 where
  orderings is determined by N.
 --}
 getShuffleSet :: (RandomGen g) => g -> [a] -> Int -> Int -> [[a]]
---getShuffleSet :: iterate 
+getShuffleSet g a l n = map shuffleHelper seeds where
+    seeds = map mkStdGen (take n $ randoms g)
+    shuffleHelper seed = shuffle seed a l
