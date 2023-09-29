@@ -1,4 +1,4 @@
--- File Name: permute.hs
+-- File Name: Permute.hs
 -- Created By: ZW
 -- Created On: 2023-09-25
 -- Purpose: define functions that generate list permutations 
