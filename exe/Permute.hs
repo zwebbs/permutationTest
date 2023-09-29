@@ -2,14 +2,15 @@
 -- Created By: ZW
 -- Created On: 2023-09-25
 -- Purpose: define functions that generate list permutations 
---   for our permutation test.
+--  for our permutation test.
 
 
 -- module namespace statement
 module Permute (
     randomSelect,
     shuffle,
-    getShuffleSet) where
+    getShuffleSet
+) where
 
 -- import basic utils for random number generation
 import System.Random
@@ -25,7 +26,7 @@ import System.Random
 randomSelect :: RandomGen g => g -> [a] -> Int -> (a, [a], g)
 randomSelect _ [] _ = error "Cannot Select on Empty List"
 randomSelect g [x] _ = (x, [], g)
-randomSelect g (x:xs) l = ((x:xs) !! i, (take i (x:xs)) ++ (drop (i+1) (x:xs)), g1) where 
+randomSelect g (x:xs) l = ((x:xs) !! i, take i (x:xs) ++ drop (i+1) (x:xs), g1) where 
     (i, g1) = randomR (0, l-1) g
 
 
@@ -37,7 +38,7 @@ randomSelect g (x:xs) l = ((x:xs) !! i, (take i (x:xs)) ++ (drop (i+1) (x:xs)), 
 shuffle :: RandomGen g => g -> [a] -> Int -> [a]
 shuffle _ [] _ = []
 shuffle _ [x] _ = [x]
-shuffle g (x:xs) l =  [v1] ++ v2 where
+shuffle g (x:xs) l =  v1 : v2 where
     (v1,r1,g1) = randomSelect g (x:xs) l
     v2 = shuffle g1 r1 (l-1)
 
