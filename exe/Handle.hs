@@ -2,11 +2,17 @@
 module Handle (
     getColumnLists,
     splitColumnLists,
-    prepareData
+    prepareData,
+    DataSet
 ) where
 
 import Data.List (transpose)
 
+data DataSet = DataSet {
+    datHead :: [String],
+    datVals :: [Double],
+    datMasks :: [[Bool]] 
+}
 
 
 stringsToDoubles :: [String] -> [Double]
@@ -37,7 +43,7 @@ splitColumnLists (h,x)
     where l = length x
 
 
-prepareData :: ([String],[String],[[String]]) -> ([String],[Double],[[Bool]])
-prepareData (h,v,m) = (h, vals, masks) where
+prepareData :: ([String],[String],[[String]]) -> DataSet
+prepareData (h,v,m) = DataSet h vals masks where
     vals = stringsToDoubles v
     masks = map stringsToBools m

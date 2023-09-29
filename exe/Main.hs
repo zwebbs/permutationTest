@@ -12,7 +12,7 @@ module Main where
 
 import Options.Applicative (execParser)
 import Handle (getColumnLists, splitColumnLists, prepareData)
-import Parse (userInput, opts, seed)
+import CmdLine (userInput, opts, seed)
 import System.Random (mkStdGen)
 
 
@@ -21,11 +21,8 @@ main :: IO ()
 main = do
     options <- execParser opts
     let rgen = mkStdGen (seed options)
-    (h,vals, mask) <- prepareData . splitColumnLists . getColumnLists . lines
+    dset <- prepareData . splitColumnLists . getColumnLists . lines
                  <$> readFile (userInput options)
 
     --run tokens (seed options) (numIters options)
-    print (show (length h))
-    print (show (length vals))
-    print (show (length mask))
-    print (show (length (head mask)))
+    putStrLn "Goodbye"

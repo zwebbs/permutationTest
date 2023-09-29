@@ -1,10 +1,10 @@
--- File Name: Parse.hs
+-- File Name: CmdLine.hs
 -- Created By: ZW
 -- Created On: 2023-09-29
 -- Purpose: defines commandline parsers for use in the main permutationTest program
 
 
-module Parse(
+module CmdLine(
     userInput,
     numIters,
     seed,
